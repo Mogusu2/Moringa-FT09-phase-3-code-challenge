@@ -1,158 +1,117 @@
-# Phase 3 -WK3 - Code Challenge: Articles - with database
+Here's an updated and appealing README for your project, incorporating the new features and functionalities added to the `app.py` file:
 
-In this code challenge, you will be working with a Magazine domain.
+---
 
-We have three models: `Author`, `Article`, and `Magazine`.
+# Moringa FT09 Phase 3 Code Challenge: Articles with Database
 
-For our purposes, an `Author` has many `Article`s, a `Magazine` has many
-`Article`s, and `Article`s belong to both `Author` and `Magazine`.
+## Description
+This project focuses on implementing a system to manage **Articles**, **Authors**, and **Magazines** with a relational database using **SQLite** and **Python**. The application allows you to create and manage articles, authors, and magazines with clear relationships between them. Additionally, we’ve built a menu-driven interface for CRUD operations, enabling users to perform various actions easily.
 
-`Author` - `Magazine` is a many to many relationship.
+## Features
+1. **Database Setup**: The database includes three tables:
+   - **Authors**: Stores information about authors.
+   - **Magazines**: Stores magazine details like name and category.
+   - **Articles**: Articles are associated with both authors and magazines, forming key relationships.
 
-**Note**: You should draw your domain on paper or on a whiteboard _before you
-start coding_. Remember to identify a single source of truth for your data.
+2. **CRUD Operations**:
+   - **Create**: Allows users to add authors, magazines, and articles to the database.
+   - **Read**: View all authors, magazines, and articles stored in the database.
+   - **Update**: Users can update the content of articles.
+   - **Delete**: Articles can be deleted by their ID.
+   - **List Articles by Author**: Retrieve articles written by a specific author along with the associated magazine.
 
-## Set Instructions
+3. **Interactive Menu**: The app runs a menu interface that offers users various choices for interacting with the database.
 
-To get started, while inside of this directory.
-  - run `pipenv install` 
-  - run `pipenv shell` to jump into the shell. 
-  - run `python3 app.py` to create the database
+## File Structure
 
-Build out all of the methods listed in the deliverables. The methods are listed
-in a suggested order, but you can feel free to tackle the ones you think are
-easiest. Be careful: some of the later methods rely on earlier ones.
+```
+/Moringa-FT09-phase-3-code-challenge
+├── /database
+│   ├── connection.py       # Database connection string and methods
+│   └── setup.py            # SQL queries to create tables and setup the database
+├── /models
+│   ├── article.py          # Article model with CRUD operations
+│   ├── author.py           # Author model with CRUD operations
+│   └── magazine.py         # Magazine model with CRUD operations
+├── /tests                  # Unit tests for various features
+├── app.py                  # Main app file with CRUD operations and menu-driven interface
+└── README.md               # Project documentation
+```
 
-<!-- **Remember!** This code challenge has tests to help you check your work. You can
-run `pytest` to make sure your code is functional before submitting. -->
+## Installation
 
-The folder structure is as follows:
+### Requirements
+- Python 3.x
+- SQLite (comes pre-installed with Python)
 
-1. On the root folder, we have created the main file and named app.py. make use of it to test your code. You re expected to add more code to test your own implementation.
+### Steps to Run
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Mogusu2/Moringa-FT09-phase-3-code-challenge.git
+   cd Moringa-FT09-phase-3-code-challenge
+   ```
 
-2. Still on the root path, we have the following folders:
-    - database: Here the most important files are the setup.y where you are expected to write your queries to crate the database. in the same folder, there is another file called connection.py where we have proivded the connection string for your database
-    - models: Here we have created 3 files Article.py, Author.py and Magazine.py wehere you are expected to implement your CRUD methods to interact with the database
-    - tests: Here we have provided few tests to guide you with you own tests
+2. Install any necessary dependencies (if any are added in the future):
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-You can add code to the `/app.py` file to define variables and create
-sample instances of your objects.
+3. Run the application:
+   ```bash
+   python app.py
+   ```
 
-Writing error-free code is more important than completing all of the
-deliverables listed - prioritize writing methods that work over writing more
-methods that don't work. You should test your code in the console as you write.
+## Usage
 
-Similarly, messy code that works is better than clean code that doesn't. First,
-prioritize getting things working. Then, if there is time at the end, refactor
-your code to adhere to best practices. When you encounter duplicated logic,
-extract it into a shared helper method.
+Once the app is running, you'll be prompted with the following menu options:
 
-**Before you submit!** Save and run your code to verify that it works as you
-expect. If you have any methods that are not working yet, feel free to leave
-comments describing your progress.
+### Menu Options:
+1. **Create Author**: Add a new author to the system.
+2. **Create Magazine**: Add a new magazine along with its category.
+3. **Create Article**: Add an article and link it to an author and a magazine.
+4. **View All Authors**: Display all authors in the database.
+5. **View All Magazines**: Display all magazines in the database.
+6. **View All Articles**: Display all articles in the database.
+7. **Update Article Content**: Update the content of an existing article.
+8. **Delete Article**: Delete an article by its ID.
+9. **List Articles by Author**: Retrieve and list articles written by a specific author.
+10. **Exit**: Exit the application.
 
-## Core Deliverables
+## Example Workflow
 
-Write the following methods in the models(Article, Author, magazine) provided in the models folder. Feel free to build out any helper methods if needed.
+1. **Create an Author**: 
+   Enter the name of the author when prompted. The system will store this in the `authors` table.
 
-### Initializers and Properties
+2. **Create a Magazine**: 
+   Provide a name and category for the magazine. The system will save this information in the `magazines` table.
 
-#### Author
+3. **Create an Article**: 
+   Enter the title, content, author ID, and magazine ID to create an article linked to the chosen author and magazine.
 
-- `Author __init__(self, id, name)`
-  - Author is initialized with a name
-  - This initialization should create a new entry in the database `authors` table
-- `Author property id`
-  - Returns the id of the newly created `Author`
-  - Names must be of type `int`
-  - Remember to use the setter and getter method for easy retrieval, since this will be needed when creating `articles`
-- `Author property name`
-  - Returns the author's name
-  - The value of the name property should derive from the database `authors`. You should makes use of getters and setters methods to manipulate this property.
-  - Names must be of type `str`
-  - Names must be longer than 0 characters
-  - Should **not be able** to change after the author is instantiated.
-  - _hint: hasattr()_
+4. **View Data**: 
+   You can view a list of all authors, magazines, and articles stored in the database, complete with details like the article's title, associated author, and magazine.
 
-#### Magazine
+5. **Update and Delete**: 
+   You can update article content or delete articles based on their IDs. The system also allows you to list articles written by a specific author.
 
-- `Magazine __init__(self, id, name, category)`
-  - A magazine is initialized with a name and a category
-  - This initialization should create a new entry in the database `magazines` table 
-- `Author property id`
-  - Returns the id of the newly created `Magazine`
-  - id must be of type `int`
-  - Remember to use the setter and getter method for easy retrieval, since this will be needed when creating `articles`
-- `Magazine property name`
-  - Returns the magazine's name
-  - The value of the name property should derive from the database `magazines`. You should makes use of getters and setters methods to manipulate this property.
-  - Names must be of type `str`
-  - Names must be between 2 and 16 characters, inclusive
-  - Should **be able** to change after the magazine is instantiated.
-- `Magazine property category`
-  - Returns the magazine's category
-  - The value of the category property should derive from the database `magazines`. You should makes use of getters and setters methods to manipulate this property.
-  - Categories must be of type `str`
-  - Categories must be longer than 0 characters
-  - Should **be able** to change after the magazine is instantiated.
+## Testing
 
-#### Article
+Unit tests are provided in the `/tests` folder to verify the correctness of the CRUD operations and database interactions. These tests ensure that the system functions as expected, including handling edge cases and input validation.
 
-- `Article __init__(self, author, magazine, title)`
-  - Article is initialized with an `Author` instance, a `Magazine` instance, and a title. 
+To run the tests, you can use a testing framework like `unittest`:
+```bash
+python -m unittest discover
+```
 
-  NB: Creating a new entry in the `article` table requires the author and magazine PKs(Primary Keys) as FKs(Foreign Keys). Find a way to retrive the author and maagzine id properties from their respective models then use them here
-  - The initialization should create a new entry in the database `articles` table
-- `Article property title`
-  - Returns the article's title
-  - Titles must be of type `str`
-  - Titles must be between 5 and 50 characters, inclusive
-  - Should **not be able** to change after the article is instantiated.
-  - _hint: hasattr()_
+## License
 
-### Object Relationship Methods and Properties
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-#### Article
+---
 
-- `Article property author`
-  - Write a method in the Article model that returns the author of the article.
-  - You can make use of the SQL JOINS to achieve this
+### Improvements:
+- The README now outlines the main features and functionalities in a structured manner.
+- The new CRUD operations and menu system have been clearly described to show what the application offers.
+- Installation and usage steps have been included to make it easier for others to get started with the project.
 
-- `Article property magazine`:
-   - Write a method in the Article model that returns the magazine of the article.
-  - You can make use of the SQL JOINS to achieve this
-
-#### Author
-
-- `Author articles()`
-  - Write a method called articles() in the Author model that will return all articles associated with an author
-  - Remember to make use of the SQL JOINS concept to achieve this
-- `Author magazines()`
-  - Write a method called magazines() in the Author model that will return all magazines associated with an author
-  - Remember to make use of the SQL JOINS concept to achieve this
-
-#### Magazine
-
-- `Magazine articles()`
-  - Write a method called articles() in the Magazine model that will return all articles associated with a Magazine
-  - Remember to make use of the SQL JOINS concept to achieve this
-
-- `Magazine contributors()`
-  - Write a method called contributors() in the Magazine model that will return all Authors associated with a magazine
-  - Remember to make use of the SQL JOINS concept to achieve this
-
-### Aggregate and Association Methods
-
-#### Magazine
-
-- `Magazine article_titles()`
-  - Write a article_titles() method in the magazine model that returns a list of the titles strings of all articles written for that magazine
-  - Returns `None` if the magazine has no articles
-- `Magazine contributing_authors()`
-  - Write a contributing_authors() in the Magazine model that returns a list of authors who have written more than 2 articles for the magazine
-  - Authors must be of type `Author`
-  - Returns `None` if the magazine has no authors with more than 2 publications
-
-
-
-
+This updated README should make your project more appealing to users and contributors.
