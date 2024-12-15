@@ -31,23 +31,23 @@ class TestModels(unittest.TestCase):
         # Verify in database
         authors = Author.get_all()
         self.assertEqual(len(authors), 1)
-        self.assertEqual(authors[0]['name'], "John Doe")
+        self.assertEqual(authors[0]['name'], "James Mogusu")
 
     def test_magazine_creation(self):
         """Test creating a magazine."""
-        magazine_id = Magazine.create("Tech Weekly", "Technology")
+        magazine_id = Magazine.create("Tech", "Technology")
         self.assertIsNotNone(magazine_id)
 
         # Verify in database
         magazines = Magazine.get_all()
         self.assertEqual(len(magazines), 1)
-        self.assertEqual(magazines[0]['name'], "Tech Weekly")
+        self.assertEqual(magazines[0]['name'], "Tech")
         self.assertEqual(magazines[0]['category'], "Technology")
 
     def test_article_creation(self):
         """Test creating an article."""
         author_id = Author.create("John Doe")
-        magazine_id = Magazine.create("Tech Weekly", "Technology")
+        magazine_id = Magazine.create("Tech", "Technology")
         article_id = Article.create("Test Title", "Test Content", author_id, magazine_id)
         self.assertIsNotNone(article_id)
 
@@ -60,7 +60,7 @@ class TestModels(unittest.TestCase):
 
     def test_article_update_content(self):
         """Test updating article content."""
-        author_id = Author.create("Jane Smith")
+        author_id = Author.create("Joy Kerry")
         magazine_id = Magazine.create("Health Monthly", "Health")
         article_id = Article.create("Old Title", "Old Content", author_id, magazine_id)
 
@@ -74,7 +74,7 @@ class TestModels(unittest.TestCase):
 
     def test_article_deletion(self):
         """Test deleting an article."""
-        author_id = Author.create("Jane Smith")
+        author_id = Author.create("Joy Kerry")
         magazine_id = Magazine.create("Science Today", "Science")
         article_id = Article.create("Delete Me", "Some Content", author_id, magazine_id)
 
