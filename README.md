@@ -1,7 +1,3 @@
-Here's an updated and appealing README for your project, incorporating the new features and functionalities added to the `app.py` file:
-
----
-
 # Moringa FT09 Phase 3 Code Challenge: Articles with Database
 
 ## Description
@@ -102,16 +98,3 @@ To run the tests, you can use a testing framework like `unittest`:
 ```bash
 python -m unittest discover
 ```
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-### Improvements:
-- The README now outlines the main features and functionalities in a structured manner.
-- The new CRUD operations and menu system have been clearly described to show what the application offers.
-- Installation and usage steps have been included to make it easier for others to get started with the project.
-
-This updated README should make your project more appealing to users and contributors.
