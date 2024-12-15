@@ -1,51 +1,66 @@
 from database.connection import get_db_connection
 
 class Article:
-    def __init__(self, id, title, content, author_id, magazine_id):
-        self.id = id
-        self.title = title
-        self.content = content
-        self.author_id = author_id
-        self.magazine_id = magazine_id
-
     @staticmethod
     def create(title, content, author_id, magazine_id):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute(
-            'INSERT INTO articles (title, content, author_id, magazine_id) VALUES (?, ?, ?, ?)',
-            (title, content, author_id, magazine_id),
-        )
-        conn.commit()
-        conn.close()
-        print(f"Article '{title}' created successfully!")
+        try:
+            cursor.execute(
+                'INSERT INTO articles (title, content, author_id, magazine_id) VALUES (?, ?, ?, ?)',
+                (title, content, author_id, magazine_id)
+            )
+            conn.commit()
+            return cursor.lastrowid
+        finally:
+            conn.close()
 
     @staticmethod
-    def read_all():
+    def get_all():
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM articles')
-        rows = cursor.fetchall()
-        conn.close()
-        return [Article(row['id'], row['title'], row['content'], row['author_id'], row['magazine_id']) for row in rows]
+        try:
+            cursor.execute('SELECT * FROM articles')
+            return cursor.fetchall()
+        finally:
+            conn.close()
 
     @staticmethod
-    def update_content(article_id, new_content):
+    def update_content(article_id, content):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute(
-            'UPDATE articles SET content = ? WHERE id = ?',
-            (new_content, article_id),
-        )
-        conn.commit()
-        conn.close()
-        print(f"Article ID {article_id} updated successfully!")
+        try:
+            cursor.execute('UPDATE articles SET content = ? WHERE id = ?', (content, article_id))
+            conn.commit()
+            return cursor.rowcount > 0
+        finally:
+            conn.close()
 
     @staticmethod
     def delete(article_id):
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('DELETE FROM articles WHERE id = ?', (article_id,))
-        conn.commit()
-        conn.close()
-        print(f"Article ID {article_id} deleted successfully!")
+        try:
+            cursor.execute('DELETE FROM articles WHERE id = ?', (article_id,))
+            conn.commit()
+            return cursor.rowcount > 0
+        finally:
+            conn.close()
+
+    @staticmethod
+    def get_by_author(author_id):
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                '''
+                SELECT articles.title, magazines.name AS magazine_name
+                FROM articles
+                JOIN magazines ON articles.magazine_id = magazines.id
+                WHERE articles.author_id = ?
+                ''',
+                (author_id,)
+            )
+            return cursor.fetchall()
+        finally:
+            conn.close()
